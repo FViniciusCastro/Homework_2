@@ -7,7 +7,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 print("Imports OK")
 
-#%%
 
 df_train = pd.read_csv(r"C:\Users\vinic\OneDrive\Documentos\MeusProjetos\Homework_2\data\treino.csv")
 df_test = pd.read_csv(r"C:\Users\vinic\OneDrive\Documentos\MeusProjetos\Homework_2\data\teste.csv")
@@ -22,7 +21,7 @@ X_test = df_test.drop(columns=cols_to_drop + ["redshift"])
 y_test = df_test["redshift"]
 
 print("Dados carregados e pré-processados.")
-#%%
+#%% OLS COM SKLEARN
 
 ols_sklearn = LinearRegression()
 ols_sklearn.fit(X_train, y_train)
@@ -76,24 +75,19 @@ def ols_from_scratch(X_train, y_train, X_test, y_test):
     - calcula beta via (X^T X)^{-1} X^T y
     - retorna coeficientes e métricas
     """
-    # Garantir arrays numpy e formatos corretos
     X_train = np.array(X_train)
     X_test  = np.array(X_test)
     y_train = np.array(y_train).reshape(-1, 1)
     y_test  = np.array(y_test).reshape(-1, 1)
 
-    # Adiciona intercepto
     X_train_i = add_intercept(X_train)
     X_test_i  = add_intercept(X_test)
 
-    # Calcula beta (atenção: pode lançar erro se X^T X singular)
     beta = compute_beta_ols(X_train_i, y_train)
 
-    # Previsões
     y_pred_train = predict(X_train_i, beta)
     y_pred_test  = predict(X_test_i, beta)
 
-    # Métricas
     results = {
         "beta": beta,
         "train_rmse": rmse(y_train, y_pred_train),
@@ -103,12 +97,11 @@ def ols_from_scratch(X_train, y_train, X_test, y_test):
     }
     return results
 
-# === Executar OLS do zero ===
 results_ols = ols_from_scratch(X_train, y_train, X_test, y_test)
 
 print("\n====== RESULTADOS DO OLS (DO ZERO) ======")
 print("Coeficientes (beta):")
-print(results_ols["beta"].flatten())   # mostra em 1D
+print(results_ols["beta"].flatten()) 
 print("\n--- MÉTRICAS ---")
 print(f"RMSE Treino: {results_ols['train_rmse']:.6f}")
 print(f"RMSE Teste : {results_ols['test_rmse']:.6f}")
@@ -116,7 +109,7 @@ print(f"R² Treino  : {results_ols['train_r2']:.6f}")
 print(f"R² Teste   : {results_ols['test_r2']:.6f}")
 print("=========================================")
 
-#%%
+    #%%
 
 print("\n========== COMPARAÇÃO DIRETA ==========")
 print(f"RMSE Teste (do zero) : {results_ols['test_rmse']}")
@@ -124,4 +117,3 @@ print(f"RMSE Teste (sklearn) : {rmse_test}")
 print(f"R² Teste (do zero) : {results_ols['test_r2']}")
 print(f"R² Teste (sklearn) : {r2_test}")
 print("=======================================")
-
