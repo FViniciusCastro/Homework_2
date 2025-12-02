@@ -4,7 +4,7 @@ Equipe:
 
 - **Carlos Vinícius** - Análise Bivariada
 - **Francisco Vinícius** - Análise Univariada
-- **Thiago Siqueira** - Análise Multivariada
+
 
 Fonte dos dados:
 
