@@ -148,7 +148,7 @@ for i, test_idx in enumerate(folds):
     rmse_folds.append(results_fold["test_rmse"])
     r2_folds.append(results_fold["test_r2"])
 
-# Resultados finais
+# RESULTADOS
 rmse_cv_mean = np.mean(rmse_folds)
 rmse_cv_std  = np.std(rmse_folds)
 

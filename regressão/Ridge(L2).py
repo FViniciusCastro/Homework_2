@@ -219,7 +219,7 @@ print_cv_results(cv_results)
 best_lam = cv_results["best_lambda"]
 ridge_final = ridge_from_scratch(X_train, y_train, X_test, y_test, best_lam)
 print_ridge_results(ridge_final)
-#%% RIDGE COM SKLEARN (USANDO O MELHOR λ)
+#%% RIDGE COM SKLEARN (USANDO O MELHOR LAMBDA)
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
