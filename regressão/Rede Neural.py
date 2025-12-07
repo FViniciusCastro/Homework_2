@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 
 print("Imports OK")
 
+# ATENÇÃO!!!! se der erro nessa parte do código, provavelmente sera por conta do diretorio em que se encontra os arquivos de teste e de treino na sua maquina, caso isso aconteça pedimos encarecidamente que cole o diretório em que os arquivos "treino.csv" e "teste.csv" se encontram na sua maquina no trecho de codigo abaixo, agradeçemos desde já.
+
 df_train = pd.read_csv(r"C:\Users\vinic\OneDrive\Documentos\MeusProjetos\Homework_2\data\treino.csv")
 df_test = pd.read_csv(r"C:\Users\vinic\OneDrive\Documentos\MeusProjetos\Homework_2\data\teste.csv")
 

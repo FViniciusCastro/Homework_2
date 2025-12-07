@@ -12,6 +12,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 print("Imports OK")
 
+# ATENÇÃO!!!! se der erro nessa parte do código, provavelmente sera por conta do diretorio em que se encontra os arquivos de teste e de treino na sua maquina, caso isso aconteça pedimos encarecidamente que cole o diretório em que os arquivos "treino.csv" e "teste.csv" se encontram na sua maquina no trecho de codigo abaixo, agradeçemos desde já.
+
 df_train = pd.read_csv(
     r"C:\Users\carlo\Documentos\GitHub\Homework_2\data\treino.csv"
 )
