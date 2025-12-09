@@ -74,6 +74,70 @@ print("Teste:")
 print(f"  RMSE: {rmse_test:.4f}")
 print(f"  R²:   {r2_test:.4f}")
 print("============================================")
+#%% CROSS-VALIDATION PARA A REDE NEURAL (10-fold)
+# ATENÇÃO: essa celula demora MUITO para rodar e não é obrigatória
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.neural_network import MLPRegressor
+
+print("Iniciando 10-fold cross-validation para a MLP...")
+
+k = 10
+kf = KFold(n_splits=k, shuffle=True, random_state=42)
+
+rmse_scores = []
+r2_scores = []
+
+for fold, (train_index, val_index) in enumerate(kf.split(X_train), start=1):
+    
+    X_tr, X_val = X_train.iloc[train_index], X_train.iloc[val_index]
+    y_tr, y_val = y_train.iloc[train_index], y_train.iloc[val_index]
+
+    pt_cv = PowerTransformer(method="yeo-johnson")
+    X_tr_pt = pt_cv.fit_transform(X_tr)
+    X_val_pt = pt_cv.transform(X_val)
+
+    scaler_cv = StandardScaler()
+    X_tr_scaled = scaler_cv.fit_transform(X_tr_pt)
+    X_val_scaled = scaler_cv.transform(X_val_pt)
+
+    mlp_cv = MLPRegressor(
+        hidden_layer_sizes=(256, 128, 64),
+        activation="relu",
+        solver="adam",
+        learning_rate_init=0.0008,
+        batch_size=64,
+        max_iter=300,
+        alpha=0.0001,
+        early_stopping=True,
+        n_iter_no_change=20,
+        random_state=42,
+    )
+
+    mlp_cv.fit(X_tr_scaled, y_tr)
+
+    y_val_pred = mlp_cv.predict(X_val_scaled)
+
+    rmse_fold = np.sqrt(mean_squared_error(y_val, y_val_pred))
+    r2_fold = r2_score(y_val, y_val_pred)
+
+    rmse_scores.append(rmse_fold)
+    r2_scores.append(r2_fold)
+
+    print(f"Fold {fold}: RMSE={rmse_fold:.4f} | R²={r2_fold:.4f}")
+
+# Resultados finais
+rmse_mean = np.mean(rmse_scores)
+rmse_std = np.std(rmse_scores)
+
+r2_mean = np.mean(r2_scores)
+r2_std = np.std(r2_scores)
+
+print("\n========== RESULTADOS CROSS-VALIDATION (MLP) ==========")
+print(f"RMSE médio (10-fold): {rmse_mean:.4f}  ± {rmse_std:.4f}")
+print(f"R² médio (10-fold):   {r2_mean:.4f}  ± {r2_std:.4f}")
+print("=======================================================\n")
+
 #%% CURVA DE APRENDIZADO (LOSS)
 
 plt.figure(figsize=(8,4))
@@ -83,5 +147,3 @@ plt.xlabel("Epoch")
 plt.ylabel("Loss")
 plt.grid()
 plt.show()
-
-# %%

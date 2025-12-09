@@ -137,7 +137,7 @@ import numpy as np
 
 def kfold_indices(n_samples, k=10):
     """
-    Gera índices embaralhados divididos em k folds.
+    Gera índices embaralhadosOrdinary Least Squares divididos em k folds.
     """
     indices = np.random.permutation(n_samples)
     return np.array_split(indices, k)
@@ -333,5 +333,78 @@ plt.title("R² Médio vs Lambda (Ridge - Do Zero)")
 plt.grid(True)
 plt.show()
 
+    #%% Visualização de dados
+
+import pandas as pd
+
+
+
+ridge_zero_train_rmse = ridge_final["train_rmse"]
+ridge_zero_test_rmse  = ridge_final["test_rmse"]
+ridge_zero_train_r2   = ridge_final["train_r2"]
+ridge_zero_test_r2    = ridge_final["test_r2"]
+
+ridge_zero_rmse_cv_mean = rmse_means[best_index]
+ridge_zero_r2_cv_mean   = r2_means[best_index]
+
+ridge_zero_rmse_cv_std = np.std(rmse_means)
+ridge_zero_r2_cv_std   = np.std(r2_means)
+
+
+
+ridge_sk_train_rmse = rmse_train_sk
+ridge_sk_test_rmse  = rmse_test_sk
+ridge_sk_train_r2   = r2_train_sk
+ridge_sk_test_r2    = r2_test_sk
+
+ridge_sk_rmse_cv_mean = rmse_scores_sk.mean()
+ridge_sk_rmse_cv_std  = rmse_scores_sk.std()
+
+ridge_sk_r2_cv_mean   = r2_scores_sk.mean()
+ridge_sk_r2_cv_std    = r2_scores_sk.std()
+
+
+df_resumo = pd.DataFrame({
+    "Modelo": ["Ridge Do Zero", "Ridge sklearn"],
+    
+    "RMSE Treino": [
+        ridge_zero_train_rmse,
+        ridge_sk_train_rmse
+    ],
+    "RMSE Teste": [
+        ridge_zero_test_rmse,
+        ridge_sk_test_rmse
+    ],
+    "R² Treino": [
+        ridge_zero_train_r2,
+        ridge_sk_train_r2
+    ],
+    "R² Teste": [
+        ridge_zero_test_r2,
+        ridge_sk_test_r2
+    ],
+    
+    "RMSE CV (médio)": [
+        ridge_zero_rmse_cv_mean,
+        ridge_sk_rmse_cv_mean
+    ],
+    "RMSE CV (desvio)": [
+        ridge_zero_rmse_cv_std,
+        ridge_sk_rmse_cv_std
+    ],
+
+    "R² CV (médio)": [
+        ridge_zero_r2_cv_mean,
+        ridge_sk_r2_cv_mean
+    ],
+    "R² CV (desvio)": [
+        ridge_zero_r2_cv_std,
+        ridge_sk_r2_cv_std
+    ]
+})
+
+print("\n========== RESUMO FINAL DOS RESULTADOS ==========\n")
+display(df_resumo.round(6))
+print("\n=================================================\n")
 
 # %%

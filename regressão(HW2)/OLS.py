@@ -110,15 +110,6 @@ print(f"R² Treino  : {results_ols['train_r2']:.6f}")
 print(f"R² Teste   : {results_ols['test_r2']:.6f}")
 print("=========================================")
 
-#%%
-
-print("\n========== COMPARAÇÃO DIRETA ==========")
-print(f"RMSE Teste (do zero) : {results_ols['test_rmse']}")
-print(f"RMSE Teste (sklearn) : {rmse_test}")
-print(f"R² Teste (do zero) : {results_ols['test_r2']}")
-print(f"R² Teste (sklearn) : {r2_test}")
-print("=======================================")
-
 #%% 10-FOLD CROSS-VALIDATION — OLS DO ZERO
 
 def kfold_indices(n_samples, k=10, seed=42):

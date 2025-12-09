@@ -1,0 +1,1 @@
+ATENÇÃO!!!! no inicio de cada codigo há uma atribuição do diretorio onde se encontram os arquivos "treino.csv" e "teste.csv", caso este diretório não corresponder ao da sua maquina é necessário atribuir o diretorio correto para os arquivos citados.
