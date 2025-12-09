@@ -55,16 +55,25 @@ mlp.fit(X_train_scaled, y_train)
 print("Treinamento concluído.")
 
 #%% RESULTADOS
-y_pred = mlp.predict(X_test_scaled)
 
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-r2 = r2_score(y_test, y_pred)
+y_pred_train = mlp.predict(X_train_scaled)
+y_pred_test  = mlp.predict(X_test_scaled)
 
-print("\n----- RESULTADOS -----")
-print(f"RMSE no teste: {rmse:.4f}")
-print(f"R² no teste:   {r2:.4f}")
+rmse_train = np.sqrt(mean_squared_error(y_train, y_pred_train))
+rmse_test  = np.sqrt(mean_squared_error(y_test, y_pred_test))
 
+r2_train = r2_score(y_train, y_pred_train)
+r2_test  = r2_score(y_test, y_pred_test)
 
+print("\n========== RESULTADOS REDE NEURAL ==========")
+print("Treino:")
+print(f"  RMSE: {rmse_train:.4f}")
+print(f"  R²:   {r2_train:.4f}\n")
+
+print("Teste:")
+print(f"  RMSE: {rmse_test:.4f}")
+print(f"  R²:   {r2_test:.4f}")
+print("============================================")
 #%% CURVA DE APRENDIZADO (LOSS)
 
 plt.figure(figsize=(8,4))

@@ -192,3 +192,5 @@ print(f"R² CV (do zero):     {r2_cv_mean:.6f}  (± {r2_cv_std:.6f})")
 print(f"R² CV (sklearn):     {r2_scores.mean():.6f}  (± {r2_scores.std():.6f})")
 print("======================================")
 
+
+# %%
