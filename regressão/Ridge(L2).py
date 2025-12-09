@@ -131,7 +131,8 @@ result = ridge_from_scratch(X_train, y_train, X_test, y_test, lam=10)
 print_ridge_results(result)
 
 
-#%% 10-FOLD CROSS-VALIDATION PARA RIDGE
+#%% 10-FOLD CROSS-VALIDATION PARA RIDGE (DO ZERO)
+
 import numpy as np
 
 def kfold_indices(n_samples, k=10):
@@ -145,7 +146,7 @@ def kfold_indices(n_samples, k=10):
 def ridge_cv_from_scratch(X, y, lambda_values, k=10):
     """
     Executa cross-validation do zero para vários valores de λ.
-    
+
     Para cada λ:
         - cria K folds
         - treina o Ridge nos folds
@@ -195,6 +196,7 @@ def ridge_cv_from_scratch(X, y, lambda_values, k=10):
 
     return results
 
+
 def print_cv_results(cv_results):
     lambdas = cv_results["lambda_values"]
     rmse = cv_results["rmse_means"]
@@ -214,7 +216,21 @@ def print_cv_results(cv_results):
 lambda_values = [0.001, 0.01, 0.1, 1, 5, 10, 20, 50, 80, 100]
 
 cv_results = ridge_cv_from_scratch(X_train, y_train, lambda_values, k=10)
+
 print_cv_results(cv_results)
+
+rmse_means = cv_results["rmse_means"]
+r2_means   = cv_results["r2_means"]
+best_lam   = cv_results["best_lambda"]
+
+best_index = np.argmin(rmse_means)
+
+print("\n===== MÉTRICAS MÉDIAS DA CROSS-VALIDATION (RIDGE DO ZERO) =====")
+print(f"Melhor λ: {best_lam}")
+print(f"RMSE médio (CV): {rmse_means[best_index]:.4f}")
+print(f"R² médio   (CV): {r2_means[best_index]:.4f}")
+print("===============================================================\n")
+
 
 #%%
 best_lam = cv_results["best_lambda"]
@@ -317,3 +333,5 @@ plt.title("R² Médio vs Lambda (Ridge - Do Zero)")
 plt.grid(True)
 plt.show()
 
+
+# %%
