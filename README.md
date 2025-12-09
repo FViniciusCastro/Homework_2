@@ -2,7 +2,7 @@
 
 Equipe: 
 
-- **Carlos Vinícius** 
+- **Carlos Vinícius - 558171** 
 - **Francisco Vinícius - 553889** 
 
 Este repositório contém a implementação do Homework 2 da disciplina TI0175, cujo objetivo é avaliar a capacidade de diferentes métodos de regressão em prever o redshift a partir de atributos fotométricos e estruturais. Para isso, foram utilizados quatro modelos principais: Regressão Linear Ordinária (OLS), Regressão Ridge, Regressão por Componentes Principais (PCR) e uma Rede Neural do tipo MLP. O trabalho inclui também a comparação entre implementações feitas do zero e as versões equivalentes da biblioteca scikit‑learn.
